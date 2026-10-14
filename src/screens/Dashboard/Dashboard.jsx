@@ -1,5 +1,10 @@
 import { useRef, useState } from 'react';
 import './Dashboard.css';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import DescriptionIcon from '@mui/icons-material/Description';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 function MaterialIcon({ children, className = '' }) {
   return <span className={`material-icons ${className}`.trim()} aria-hidden="true">{children}</span>;
@@ -14,7 +19,7 @@ function ProfileCard() {
         src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=85"
         alt="Profile"
       />
-      <div className="dashboard-profile-name">Mashhood Ahmad<br />Danish</div>
+      <div className="dashboard-profile-name">Satish Murakonda<br />Danish</div>
       <div className="dashboard-profile-role"><span /> AI Resume Reviewer</div>
     </section>
   );
@@ -71,23 +76,23 @@ export default function Dashboard() {
         <p className="dashboard-intro">See how closely a candidate matches the role requirements.</p>
 
         <section className="dashboard-instructions">
-          <div className="dashboard-instruction-title"><MaterialIcon>notifications</MaterialIcon><strong>Important instructions</strong></div>
-          <div className="dashboard-instruction-row"><MaterialIcon>description</MaterialIcon><span>Paste the complete job description in the field below.</span></div>
-          <div className="dashboard-instruction-row"><MaterialIcon>picture_as_pdf</MaterialIcon><span>Only PDF format resumes are accepted.</span></div>
+          <div className="dashboard-instruction-title"><NotificationsActiveIcon sx = {{color: "red"}}/><strong>Important instructions</strong></div>
+          <div className="dashboard-instruction-row"><DescriptionIcon/><span>Paste the complete job description in the "Jobd Description: field before submitting".</span></div>
+          <div className="dashboard-instruction-row"><AttachFileIcon/><span>Only PDF format (.pdf) resumes are accepted.</span></div>
         </section>
 
         <section className="dashboard-upload-section" aria-label="Upload resume">
           <div className={`dashboard-file-display ${resume ? 'has-file' : ''}`}>
-            <MaterialIcon>{resume ? 'task' : 'upload_file'}</MaterialIcon>
+            <>{resume ? <PictureAsPdfIcon sx= {{fontSize: 70 ,color : "#F27A22",marginLeft: 20}}/> : <CloudDownloadIcon sx= {{fontSize: 70 ,color : "#F27A22",marginLeft: 20}}/>}</>
             <div className="dashboard-file-copy">
               <strong title={resume?.name}>{resume ? resume.name : 'Upload your resume'}</strong>
-              <span>{resume ? `${(resume.size / 1024 / 1024).toFixed(2)} MB · PDF document` : 'Choose a PDF file from your computer'}</span>
+              <span>{resume ? `${(resume.size / 1024 / 1024).toFixed(2)} MB · PDF document` : ''}</span>
             </div>
-            {resume && <button type="button" className="dashboard-clear-file" aria-label="Remove selected resume" onClick={removeResume}><MaterialIcon>close</MaterialIcon></button>}
+            {resume && <button type="button" className="dashboard-clear-file" aria-label="Remove selected resume" onClick={removeResume}></button>}
           </div>
           <input ref={fileInputRef} className="dashboard-hidden-file-input" id="resume-upload" type="file" accept=".pdf,application/pdf" onChange={handleFileChange} />
           <button type="button" className="dashboard-gradient-button dashboard-upload-button" onClick={() => fileInputRef.current?.click()}>
-            <MaterialIcon>cloud_upload</MaterialIcon><span>{resume ? 'Change Resume' : 'Upload Resume'}</span>
+            <span>{resume ? 'Change Resume' : 'Upload Resume'}</span>
           </button>
         </section>
 
@@ -120,10 +125,6 @@ export default function Dashboard() {
 
       <aside className="dashboard-right-column">
         <ProfileCard />
-        <div className="dashboard-tip-card">
-          <div className="dashboard-tip-icon"><MaterialIcon>tips_and_updates</MaterialIcon></div>
-          <div><strong>Pro tip</strong><p>A detailed job description helps produce a more useful match analysis.</p></div>
-        </div>
       </aside>
     </div>
   );
