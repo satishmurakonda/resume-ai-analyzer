@@ -1,0 +1,163 @@
+:root {
+  font-family: 'Inter', sans-serif;
+  color: #17192f;
+  background: #f4f6fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --resume-navy: #10105f;
+  --resume-blue: #4848e9;
+  --resume-orange: #ff9e21;
+  --resume-pink: #fa426e;
+  --resume-muted: #7b8095;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #8989ff;
+  outline-offset: 3px;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  background: #f4f6fb;
+}
+
+.app-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.app-content {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 42px 38px;
+}
+
+.mobile-header {
+  display: none;
+}
+
+.app-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(12, 14, 48, .45);
+  backdrop-filter: blur(5px);
+}
+
+.app-logout-dialog {
+  width: min(100%, 420px);
+  padding: 30px;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 25px 80px rgba(10, 12, 50, .25);
+  text-align: center;
+}
+
+.app-logout-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 15px;
+  padding: 14px;
+  border-radius: 16px;
+  color: #e75d70;
+  background: #fff0f2;
+}
+
+.app-logout-dialog h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.app-logout-dialog p {
+  color: #7c8196;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.app-dialog-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.app-cancel-button,
+.app-confirm-button {
+  border-radius: 12px;
+  padding: 13px 18px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.app-cancel-button {
+  border: 1px solid #e5e7f0;
+  color: #545970;
+  background: #fff;
+}
+
+.app-confirm-button {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(110deg, var(--resume-orange), var(--resume-pink));
+}
+
+@media (max-width: 1100px) {
+  .app-content {
+    padding: 28px 22px;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    display: block;
+  }
+
+  .app-content {
+    padding: 17px 13px 28px;
+  }
+
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 13px;
+    color: var(--resume-navy);
+    background: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .mobile-header .material-icons {
+    font-size: 24px;
+  }
+}

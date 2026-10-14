@@ -1,0 +1,8 @@
+.admin-page { max-width: 800px; min-height: 360px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 50px; border: 1px solid rgba(226,229,240,.8); border-radius: 24px; background: rgba(255,255,255,.9); box-shadow: 0 14px 35px rgba(30,37,75,.07), 0 2px 7px rgba(30,37,75,.04); }
+.admin-page-icon { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 17px; color: #7543c5; background: #f0eaff; }
+.admin-page-icon .material-icons { font-size: 30px; }
+.admin-page-eyebrow { margin: 25px 0 0; color: #6065b6; font-size: 11px; font-weight: 800; letter-spacing: 1.6px; }
+.admin-page h1 { margin: 13px 0 8px; color: #13152b; font-size: 34px; letter-spacing: -1.3px; }
+.admin-page-description { max-width: 490px; color: #7b8095; font-size: 14px; line-height: 1.8; }
+.admin-page-badge { margin-top: 15px; padding: 9px 13px; border-radius: 20px; color: #5d5fc5; background: #eeeefe; font-size: 10px; font-weight: 700; }
+@media (max-width: 760px) { .admin-page { min-height: 300px; padding: 28px 22px; } .admin-page h1 { font-size: 29px; } }
