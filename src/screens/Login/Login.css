@@ -1,0 +1,106 @@
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #072778;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 1000px;
+  padding: 44px 36px;
+  border: 1px solid #e6e8f0;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 18px 50px rgba(30, 37, 75, 0.1);
+  text-align: center;
+}
+
+.login-brand-icon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 22px;
+  border-radius: 18px;
+  color: #fff;
+  background: #10105f;
+}
+
+.login-brand-icon .material-icons {
+  font-size: 38px;
+}
+
+.login-eyebrow {
+  color: #072778;
+  font-size: 41px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.login-card h1 {
+  margin: 16px 0 12px;
+  color: #17192f;
+  font-size: 30px;
+  line-height: 1.25;
+}
+
+.login-description {
+  margin: 0 0 28px;
+  color: #7b8095;
+  font-size: 24px;
+  line-height: 1.8;
+}
+
+.google-signin-button {
+  width: 100%;
+  min-height: 94px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border: 1px solid #dadce0;
+  border-radius: 52px;
+  color: #072778;
+  background: #E8E9ED;
+  font-size: 40px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.google-signin-button:hover {
+  background: #f8f9fa;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.google-signin-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.login-error {
+  margin-top: 16px;
+  color: #c13e54;
+  font-size: 13px;
+}
+
+.login-footer {
+  margin: 26px 0 0;
+  color: #9296a8;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 34px 22px;
+  }
+
+  .login-card h1 {
+    font-size: 26px;
+  }
+}

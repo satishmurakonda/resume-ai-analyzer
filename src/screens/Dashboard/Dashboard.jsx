@@ -10,22 +10,42 @@ function MaterialIcon({ children, className = '' }) {
   return <span className={`material-icons ${className}`.trim()} aria-hidden="true">{children}</span>;
 }
 
-function ProfileCard() {
+
+function ProfileCard({ user }) {
+  const displayName = user?.displayName || 'Google User';
+  const photoURL = user?.photoURL;
+
   return (
     <section className="dashboard-profile-card">
       <h2>Analyze With AI</h2>
-      <img
-        className="dashboard-profile-avatar"
-        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=85"
-        alt="Profile"
-      />
-      <div className="dashboard-profile-name">Satish Murakonda<br />Danish</div>
-      <div className="dashboard-profile-role"><span /> AI Resume Reviewer</div>
+
+      {photoURL ? (
+        <img
+          className="dashboard-profile-avatar"
+          src={photoURL}
+          alt={`${displayName}'s profile`}
+          referrerPolicy="no-referrer"
+        />
+      ) : (
+        <div className="dashboard-profile-placeholder">
+          {displayName.charAt(0).toUpperCase()}
+        </div>
+      )}
+
+      <div className="dashboard-profile-name">
+        {displayName}
+      </div>
+
+      <div className="dashboard-profile-role">
+        <span />
+        AI Resume Reviewer
+      </div>
     </section>
   );
 }
 
-export default function Dashboard() {
+
+export default function Dashboard( {user} ) {
   const fileInputRef = useRef(null);
   const [resume, setResume] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
@@ -124,7 +144,7 @@ export default function Dashboard() {
       </main>
 
       <aside className="dashboard-right-column">
-        <ProfileCard />
+        <ProfileCard user={user} />
       </aside>
     </div>
   );

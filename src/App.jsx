@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+
+import { auth } from './utils/firebase/Firebase.js';
+import Login from './screens/Login/Login.jsx'
 import Sidebar from './screens/Components/Sidebar.jsx';
 import Dashboard from './screens/Dashboard/Dashboard.jsx';
 import History from './screens/History/History.jsx';
@@ -6,55 +10,85 @@ import Admin from './screens/Admin/Admin.jsx';
 import './App.css';
 
 export default function App() {
+  const [user, setUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [activePage, setActivePage] = useState('Dashboard');
-  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [logoutError, setLogoutError] = useState('');
 
-  const handleNavigate = (page) => {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setAuthLoading(false);
+
+      if (!currentUser) {
+        setActivePage('Dashboard');
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
+  async function handleNavigate(page) {
+    setLogoutError('');
+
     if (page === 'Logout') {
-      setShowLogoutDialog(true);
+      try {
+        await signOut(auth);
+        // The auth observer returns the app to Login.
+      } catch (error) {
+        console.error('Logout failed:', error);
+        setLogoutError('Unable to log out. Please try again.');
+      }
       return;
     }
+
     setActivePage(page);
-  };
+  }
+
+  if (authLoading) {
+    return (
+      <div className="auth-loading">
+        <p>Checking authentication...</p>
+      </div>
+    );
+  }
+
+  // Protect all application screens.
+  if (!user) {
+    return <Login />;
+  }
 
   return (
     <div className="app-shell">
-      <Sidebar activePage={activePage} onNavigate={handleNavigate} />
+      <Sidebar
+        activePage={activePage}
+        onNavigate={handleNavigate}
+      />
+
       <main className="app-main">
         <header className="mobile-header">
-          <span className="material-icons" aria-hidden="true">view_headline</span>
+          <span className="material-icons" aria-hidden="true">
+            article
+          </span>
           <span>Resume Screening</span>
         </header>
 
+        {logoutError && (
+          <p className="auth-error" role="alert">
+            {logoutError}
+          </p>
+        )}
+
         <div className="app-content">
-          {activePage === 'Dashboard' && <Dashboard />}
+          {activePage === 'Dashboard' && (
+            <Dashboard user={user} />
+          )}
+
           {activePage === 'History' && <History />}
+
           {activePage === 'Admin' && <Admin />}
         </div>
       </main>
-
-      {showLogoutDialog && (
-        <div className="app-modal-backdrop" onClick={() => setShowLogoutDialog(false)}>
-          <section
-            className="app-logout-dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="logout-heading"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <span className="material-icons app-logout-icon" aria-hidden="true">logout</span>
-            <h2 id="logout-heading">Logout</h2>
-            <p>Authentication is not connected yet. You can return to the dashboard for now.</p>
-            <div className="app-dialog-actions">
-              <button className="app-cancel-button" onClick={() => setShowLogoutDialog(false)}>Cancel</button>
-              <button className="app-confirm-button" onClick={() => {
-                setShowLogoutDialog(false);
-                setActivePage('Dashboard');
-              }}>Back to Dashboard</button>
-            </div>
-          </section>
-        </div>
-      )}
     </div>
   );
 }
